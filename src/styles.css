@@ -1,0 +1,497 @@
+/* ============================================================
+   TreeTracker — design system + layout
+   Plain CSS, mobile-first. Tune tokens below to rebrand.
+   ============================================================ */
+
+:root {
+  /* surfaces */
+  --bg: #f4f2ec;          /* app background (warm paper) */
+  --surface: #ffffff;     /* cards, bars */
+  --surface-2: #faf9f5;   /* subtle inset */
+
+  /* ink */
+  --ink: #1f241d;         /* primary text (warm near-black) */
+  --ink-2: #5d6357;       /* secondary text */
+  --ink-3: #8c9183;       /* hints / disabled */
+
+  /* lines */
+  --line: #e6e2d6;        /* default border */
+  --line-2: #d6d1c2;      /* emphasized border */
+
+  /* brand: evergreen */
+  --green: #2e6b43;
+  --green-press: #245736;
+  --green-ink: #1c4429;
+  --green-soft: #e7f0e8;  /* scheduled / selected fills */
+
+  /* states */
+  --amber: #9a6516;       /* "waiting on customer" */
+  --amber-soft: #f6ead4;
+  --blue-ink: #2a5c8a;    /* links / info */
+  --blue-soft: #e6eff8;
+  --red: #b23b3b;         /* destructive / overdue */
+  --red-soft: #f6e3e1;
+
+  /* shape */
+  --r-card: 16px;
+  --r-ctl: 12px;
+  --r-pill: 999px;
+
+  /* elevation (very soft, app-like) */
+  --shadow-1: 0 1px 2px rgba(31, 36, 29, .05);
+  --shadow-2: 0 4px 16px rgba(31, 36, 29, .08);
+
+  /* sizing tuned for older users / gloved fingers */
+  --tap: 52px;
+  --rail-w: 248px;
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; margin: 0; }
+
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--bg);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button { font-family: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ============================================================
+   App shell  —  phone: bottom tab bar.  tablet: left rail.
+   ============================================================ */
+
+.app {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* main scroll area */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(76px + env(safe-area-inset-bottom)); /* clear tab bar */
+}
+
+.screen {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px 18px 28px;
+}
+
+/* sticky in-screen header */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(1.1) blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-title { font-size: 22px; font-weight: 650; letter-spacing: -.01em; margin: 0; }
+.topbar-spacer { flex: 1; }
+.topbar-back {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: none; border: 0; color: var(--green-ink);
+  font-size: 16px; font-weight: 600; padding: 6px 4px; cursor: pointer;
+}
+
+/* ---- bottom tab bar (phone) ---- */
+.tabbar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 20;
+  display: flex;
+  align-items: stretch;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: var(--shadow-2);
+}
+.tab {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px;
+  min-height: 64px;
+  border: 0; background: none; cursor: pointer;
+  color: var(--ink-3);
+  font-size: 12px; font-weight: 600;
+}
+.tab svg { width: 24px; height: 24px; }
+.tab.active { color: var(--green); }
+.tab-add {
+  color: #fff;
+}
+.tab-add .tab-add-bubble {
+  margin-top: -22px;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-2);
+  border: 4px solid var(--bg);
+}
+.tab-add .tab-add-bubble svg { width: 28px; height: 28px; }
+.tab-add span { color: var(--green); margin-top: 2px; }
+
+/* ---- side rail (tablet) ---- */
+.rail { display: none; }
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: var(--tap);
+  padding: 0 18px;
+  border-radius: var(--r-ctl);
+  border: 1px solid var(--line-2);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 16px; font-weight: 600;
+  cursor: pointer;
+  transition: background .12s, transform .04s;
+}
+.btn:active { transform: scale(.985); }
+.btn svg { width: 20px; height: 20px; }
+.btn-primary { background: var(--green); border-color: var(--green); color: #fff; }
+.btn-primary:active { background: var(--green-press); }
+.btn-ghost { background: transparent; border-color: transparent; color: var(--green-ink); }
+.btn-block { width: 100%; }
+.btn-lg { min-height: 58px; font-size: 17px; }
+
+.icon-btn {
+  width: 44px; height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--r-ctl);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.icon-btn svg { width: 22px; height: 22px; }
+
+/* ============================================================
+   Type helpers
+   ============================================================ */
+.section-label {
+  font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 22px 2px 10px;
+}
+.section-label:first-child { margin-top: 6px; }
+.muted { color: var(--ink-2); }
+.row { display: flex; align-items: center; gap: 12px; }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+
+/* ============================================================
+   Cards & job rows
+   ============================================================ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-1);
+}
+
+.job-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  width: 100%; text-align: left;
+  transition: border-color .12s, transform .04s;
+}
+.job-card:active { transform: scale(.99); }
+.job-card + .job-card { margin-top: 10px; }
+.job-thumb {
+  width: 56px; height: 56px; border-radius: 12px; flex: 0 0 auto;
+  background: var(--green-soft);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green); overflow: hidden;
+}
+.job-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.job-main { flex: 1; min-width: 0; }
+.job-name { font-size: 17px; font-weight: 650; letter-spacing: -.01em; }
+.job-sub { font-size: 14px; color: var(--ink-2); margin-top: 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.job-chevron { color: var(--ink-3); flex: 0 0 auto; }
+.job-chevron svg { width: 22px; height: 22px; }
+
+/* day grouping */
+.day-head {
+  display: flex; align-items: baseline; gap: 8px;
+  margin: 22px 2px 10px;
+}
+.day-head .d-date { font-size: 16px; font-weight: 650; }
+.day-head .d-count { font-size: 13px; color: var(--ink-3); font-weight: 600; }
+.day-head .d-count.over { color: var(--amber); }
+
+/* pool banner */
+.pool-banner {
+  display: flex; align-items: center; gap: 14px;
+  width: 100%; text-align: left;
+  padding: 16px;
+  border: 1px solid var(--amber-soft);
+  background: var(--amber-soft);
+  border-radius: var(--r-card);
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+.pool-banner .pb-ico {
+  width: 44px; height: 44px; border-radius: 12px; flex: 0 0 auto;
+  background: #fff; color: var(--amber);
+  display: flex; align-items: center; justify-content: center;
+}
+.pool-banner .pb-main { flex: 1; }
+.pool-banner .pb-title { font-size: 16px; font-weight: 650; color: var(--amber); }
+.pool-banner .pb-sub { font-size: 13px; color: color-mix(in srgb, var(--amber) 80%, #000); }
+.pool-banner .pb-count {
+  font-size: 15px; font-weight: 700; color: var(--amber);
+  background: #fff; border-radius: var(--r-pill); padding: 4px 12px;
+}
+
+.sidebar-waiting {
+  font-size: 15px; font-weight: 700; color: var(--amber);
+  background: #e3e3e3; border-radius: var(--r-pill); padding: 4px 12px; border: 1px solid var(--line);
+}
+
+/* ============================================================
+   Tags (work types) & status pills
+   ============================================================ */
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font-size: 13px; font-weight: 600;
+  padding: 6px 12px; border-radius: var(--r-pill);
+  background: var(--green-soft); color: var(--green-ink);
+}
+.status-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700;
+  padding: 6px 12px; border-radius: var(--r-pill);
+}
+.status-pill.scheduled { background: var(--green-soft); color: var(--green-ink); }
+.status-pill.waiting   { background: var(--amber-soft); color: var(--amber); }
+.status-pill.invoiced  { background: var(--blue-soft); color: var(--blue-ink); }
+.status-pill.overdue   { background: var(--red-soft); color: var(--red); }
+
+.flag {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 700; color: var(--amber);
+}
+.flag svg { width: 15px; height: 15px; }
+
+/* ============================================================
+   Selectable chips (New Job work types)
+   ============================================================ */
+.chip-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 46px; padding: 0 16px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--line-2);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 15px; font-weight: 600;
+  cursor: pointer;
+  transition: background .12s, border-color .12s;
+}
+.chip svg { width: 18px; height: 18px; opacity: 0; width: 0; transition: none; }
+.chip.on {
+  background: var(--green-soft);
+  border-color: var(--green);
+  color: var(--green-ink);
+}
+.chip.on svg { opacity: 1; width: 18px; }
+
+/* ============================================================
+   Avatars
+   ============================================================ */
+.avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--green-soft); color: var(--green-ink);
+  font-size: 18px; font-weight: 700; flex: 0 0 auto;
+}
+.avatar.sm { width: 40px; height: 40px; font-size: 15px; }
+
+/* ============================================================
+   Job detail
+   ============================================================ */
+.detail-head { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+.detail-head .dh-name { font-size: 20px; font-weight: 700; letter-spacing: -.01em; }
+.detail-head .dh-sub { font-size: 14px; color: var(--ink-2); margin-top: 2px; }
+
+.contact-row { display: flex; gap: 10px; margin: 16px 0; }
+.contact-btn {
+  flex: 1; min-height: var(--tap);
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  border: 1px solid var(--line); border-radius: var(--r-ctl);
+  background: var(--surface); color: var(--green-ink);
+  font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer;
+}
+.contact-btn svg { width: 22px; height: 22px; }
+
+.photo-strip { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; margin: 14px 0; }
+.photo {
+  width: 104px; height: 104px; flex: 0 0 auto;
+  border-radius: 12px; background: var(--surface-2);
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-3); overflow: hidden;
+}
+.photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.notes {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-card); padding: 14px 16px;
+  font-size: 16px; line-height: 1.55; color: var(--ink);
+}
+.kv { display: flex; justify-content: space-between; align-items: center; padding: 12px 2px; }
+.kv + .kv { border-top: 1px solid var(--line); }
+.kv .k { color: var(--ink-2); font-size: 15px; }
+.kv .v { font-weight: 650; font-size: 16px; }
+
+.pushback {
+  margin-top: 8px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-card); padding: 16px; box-shadow: var(--shadow-1);
+}
+.pushback h4 { margin: 0 0 12px; font-size: 14px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .04em; color: var(--ink-3); }
+.pushback-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pushback-btn {
+  min-height: 56px; border-radius: var(--r-ctl);
+  border: 1px solid var(--line-2); background: var(--surface-2);
+  color: var(--ink); font-size: 16px; font-weight: 650; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+.pushback-btn svg { width: 20px; height: 20px; color: var(--green); }
+.pushback-btn:active { transform: scale(.985); }
+
+/* ============================================================
+   Forms (New Job)
+   ============================================================ */
+.field { margin-bottom: 18px; }
+.field-label { display: block; font-size: 14px; font-weight: 650; color: var(--ink-2); margin: 0 2px 8px; }
+.input, .textarea {
+  width: 100%; min-height: var(--tap);
+  padding: 13px 14px;
+  font-size: 16px; font-family: inherit; color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-2); border-radius: var(--r-ctl);
+}
+.input::placeholder, .textarea::placeholder { color: var(--ink-3); }
+.input:focus, .textarea:focus { border-color: var(--green); outline: none;
+  box-shadow: 0 0 0 3px var(--green-soft); }
+.textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
+.input-search { position: relative; }
+.input-search svg { position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+  width: 20px; height: 20px; color: var(--ink-3); }
+.input-search .input { padding-left: 42px; }
+.input-mic { position: relative; }
+.input-mic .mic { position: absolute; right: 12px; bottom: 12px; color: var(--green);
+  background: none; border: 0; cursor: pointer; }
+.input-mic .mic svg { width: 22px; height: 22px; }
+
+.photo-add {
+  height: 104px; border-radius: 12px;
+  border: 1.5px dashed var(--line-2); background: var(--surface-2);
+  color: var(--green-ink); font-weight: 600; font-size: 14px;
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; flex: 0 0 auto; width: 104px;
+}
+.photo-add svg { width: 26px; height: 26px; }
+.photo-grid { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.form-actions { position: sticky; bottom: 0; padding: 14px 0 4px;
+  background: linear-gradient(to top, var(--bg) 70%, transparent); }
+
+/* ============================================================
+   Customer list
+   ============================================================ */
+.list-row {
+  display: flex; align-items: center; gap: 14px;
+  width: 100%; text-align: left;
+  padding: 12px 14px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-card); box-shadow: var(--shadow-1);
+  cursor: pointer;
+}
+.list-row + .list-row { margin-top: 10px; }
+.list-row .lr-main { flex: 1; min-width: 0; }
+.list-row .lr-name { font-size: 17px; font-weight: 650; }
+.list-row .lr-sub { font-size: 14px; color: var(--ink-2); }
+
+.empty { text-align: center; color: var(--ink-3); padding: 48px 16px; }
+.empty svg { width: 40px; height: 40px; margin-bottom: 10px; }
+
+/* ============================================================
+   TABLET  —  >= 760px: side rail replaces tab bar
+   ============================================================ */
+@media (min-width: 760px) {
+  .app { flex-direction: row; }
+
+  .tabbar { display: none; }
+
+  .rail {
+    display: flex; flex-direction: column;
+    width: var(--rail-w); flex: 0 0 var(--rail-w);
+    height: 100vh; position: sticky; top: 0;
+    background: var(--surface);
+    border-right: 1px solid var(--line);
+    padding: 22px 16px;
+  }
+  .rail-brand { display: flex; align-items: center; gap: 10px; padding: 6px 8px 22px; }
+  .rail-brand .rb-mark {
+    width: 38px; height: 38px; border-radius: 11px; background: var(--green);
+    display: flex; align-items: center; justify-content: center; color: #fff;
+  }
+  .rail-brand .rb-name { font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
+  .rail-add { margin-bottom: 14px; }
+  .rail-nav { display: flex; flex-direction: column; gap: 4px; }
+  .rail-item {
+    display: flex; align-items: center; gap: 13px;
+    min-height: 50px; padding: 0 14px; border-radius: var(--r-ctl);
+    border: 0; background: none; cursor: pointer;
+    color: var(--ink-2); font-size: 16px; font-weight: 600; text-align: left;
+  }
+  .rail-item svg { width: 22px; height: 22px; }
+  .rail-item:hover { background: var(--surface-2); }
+  .rail-item.active { background: var(--green-soft); color: var(--green-ink); }
+
+  .main { padding-bottom: 0; }
+  .screen { max-width: 760px; padding: 22px 28px 40px; }
+  .topbar { padding: 18px 28px; }
+
+  /* roomier grids on tablet */
+  .pushback-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* wide tablet / landscape: two columns of content where useful */
+@media (min-width: 1080px) {
+  .screen.wide { max-width: 1000px; }
+  .col-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+}
