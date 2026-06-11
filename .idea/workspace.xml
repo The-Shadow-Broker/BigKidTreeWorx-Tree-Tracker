@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ddfde881-56ed-4b1e-a29a-279188f7bd85" name="Changes" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/data.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/photos.js" afterDir="false" />
+    <list default="true" id="ddfde881-56ed-4b1e-a29a-279188f7bd85" name="Changes" comment="Added firebase support">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +30,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "master",
@@ -49,6 +46,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Nate\Desktop\BigKidTreeWorx Tree Tracker" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -68,7 +70,8 @@
       <workItem from="1781123488181" duration="3510000" />
       <workItem from="1781136700706" duration="1828000" />
       <workItem from="1781147121001" duration="252000" />
-      <workItem from="1781147381680" duration="2000000" />
+      <workItem from="1781147381680" duration="2656000" />
+      <workItem from="1781151237929" duration="63000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -78,7 +81,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781148417018</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added firebase support">
+      <option name="closed" value="true" />
+      <created>1781149409062</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1781149409062</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -97,6 +108,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="Added firebase support" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added firebase support" />
   </component>
 </project>
